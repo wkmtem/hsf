@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  
+  <modelVersion>4.0.0</modelVersion>
+  
+  <groupId>com.compass</groupId>
+  <artifactId>hsf</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  
+  <properties>
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	
+  	<javax.servlet-api-version>3.1.0</javax.servlet-api-version>
+	<com.alibaba-hsf-version>edas1.0.1</com.alibaba-hsf-version>
+	<com.alibaba.edas-sdk-version>1.5.6</com.alibaba.edas-sdk-version>
+  	<org.springframework-version>4.3.9.RELEASE</org.springframework-version>
+  </properties>
+  
+  <dependencyManagement>
+  	<dependencies>
+  	  <!-- servlet-api -->
+	  <dependency>
+		<groupId>javax.servlet</groupId>
+		<artifactId>javax.servlet-api</artifactId>
+		<version>${javax.servlet-api-version}</version>
+	  </dependency>
+	  <!-- alibaba -->
+	  <dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>hsf.schema</artifactId>
+		<version>${com.alibaba-hsf-version}</version>
+	  </dependency>
+	  <dependency>
+		<groupId>com.alibaba.edas</groupId>
+		<artifactId>edas-sdk</artifactId>
+		<version>${com.alibaba.edas-sdk-version}</version>
+	  </dependency>
+	  <!-- Spring -->
+	  <dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-webmvc</artifactId>
+	    <version>${org.springframework-version}</version>
+	  </dependency>
+	  <dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context-support</artifactId>
+	    <version>${org.springframework-version}</version>
+	  </dependency>
+	  <dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-orm</artifactId>
+	    <version>${org.springframework-version}</version>
+	  </dependency>
+	  <dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-test</artifactId>
+	    <version>${org.springframework-version}</version>
+	  </dependency>
+	  <dependency>
+		<groupId>org.springframework</groupId>
+		<artifactId>spring-aspects</artifactId>
+		<version>${org.springframework-version}</version>
+	  </dependency>
+  	</dependencies>
+  </dependencyManagement>
+  
+  <build>
+	<plugins>
+	  <!-- 编译插件 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.2</version>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+      
+	  <!-- source打包插件 -->
+      <plugin>
+      	<groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>2.4</version>
+        <configuration>
+          <attach>true</attach>
+        </configuration>  
+        <executions>  
+          <execution>  
+            <phase>package</phase>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>  
+          </execution>  
+        </executions>  
+      </plugin>
+      
+      <!-- javadoc插件 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.2</version> 
+        <configuration>  
+          <aggregate>true</aggregate>  
+        </configuration>
+        <executions>  
+          <execution>  
+            <id>attach-javadocs</id>  
+            <goals>  
+              <goal>jar</goal>  
+            </goals>  
+          </execution>  
+        </executions>  
+      </plugin>
+      
+      <!-- 打包忽略Junit测试 -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.17</version>
+        <configuration>
+          <skip>true</skip>
+        </configuration>
+      </plugin>
+    
+	  <!-- <plugin>
+		<artifactId>maven-war-plugin</artifactId>
+		<version>2.2</version>
+		<configuration>
+		  <version>3.0</version>
+		  <failOnMissingWebXml>false</failOnMissingWebXml>
+		</configuration>
+	  </plugin> -->
+	</plugins>
+  </build>
+  
+  <modules>
+    <module>hsf-provider</module>
+    <module>hsf-consumer</module>
+  </modules>
+</project>
